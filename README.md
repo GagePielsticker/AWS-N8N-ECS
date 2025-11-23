@@ -16,6 +16,7 @@ This repository contains Terraform code to deploy the n8n automation platform on
 - `terraform/modules/r53/` – (Optional) Route 53 and ACM resources for DNS and SSL.
 
 ## Usage
+0. Configure s3 bucket in `terraform/environments/dev/providers.tf`.
 1. Configure your variables in `terraform/environments/dev/input.tfvars` (set domain, subdomain, etc.).
 2. Run `terraform init` and `terraform apply` in the environment APdirectory to provision resources.
 3. Reference secret management below to assign rds user/password etc.
