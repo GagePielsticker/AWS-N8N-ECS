@@ -18,6 +18,11 @@ module "n8n" {
   cpu    = var.cpu
   memory = var.memory
 
+  db_instance_class    = var.db_instance_class
+  db_allocated_storage = var.db_allocated_storage
+
   desired_count      = var.desired_count
   log_retention_days = var.log_retention_days
+
+  force_ecs_update = true //If true will force a new ecs task deployment
 }

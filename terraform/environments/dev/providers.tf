@@ -5,6 +5,11 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
+
+    random = {
+      source  = "hashicorp/random"
+      version = ">= 3.5.1"
+    }
   }
   backend "s3" {
     bucket       = "<<S3_BUCKET_NAME_HERE>>"

@@ -1,4 +1,3 @@
-
 # -----------------------------
 # VARIABLES
 # -----------------------------
@@ -49,6 +48,21 @@ variable "domain_name" {
 variable "acm_certificate_arn" {
   type        = string
   description = "ARN of the existing ACM certificate for the domain"
+}
+
+variable "force_ecs_update" {
+  description = "Set to true to force ECS task redeploy by generating a random value."
+  type        = bool
+  default     = false
+}
+
+resource "random_id" "ecs_update" {
+  count       = var.force_ecs_update ? 1 : 0
+  byte_length = 8
+}
+
+locals {
+  version_update = var.force_ecs_update ? random_id.ecs_update[0].hex : var.version_update
 }
 
 # Postgres variables

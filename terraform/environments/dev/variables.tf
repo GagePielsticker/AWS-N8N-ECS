@@ -55,3 +55,15 @@ variable "subdomain" {
   description = "Subdomain for the n8n service (e.g., dev, staging)"
 
 }
+
+variable "db_instance_class" {
+  type        = string
+  description = "RDS instance class (e.g., db.t3.micro)"
+
+}
+
+variable "db_allocated_storage" {
+  type        = number
+  description = "Allocated storage (in GB) for RDS instance"
+
+}

@@ -1,9 +1,9 @@
 region = "us-east-1"
 
 #DNS Stuff
-base_domain         = ""    // e.g. example.com
-subdomain           = "n8n" // e.g. n8n
-acm_certificate_arn = ""
+base_domain         = "" // e.g. example.com   Requires r53 setup
+subdomain           = "" // e.g. n8n              Requires r53 setup
+acm_certificate_arn = "" // ACM cert *.example.com
 
 #ECS Config
 cpu    = "256"

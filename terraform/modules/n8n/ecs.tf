@@ -111,7 +111,7 @@ resource "aws_ecs_task_definition" "n8n_task" {
         { name = "N8N_BASIC_AUTH_ACTIVE", value = "true" },
         { name = "N8N_PORT", value = tostring(var.container_port) },
         { name = "DB_TYPE", value = "postgresdb" },
-        { name = "FORCE_NEW_UPDATE_VALUE", value = var.version_update },
+        { name = "FORCE_NEW_UPDATE_VALUE", value = local.version_update },
         { name = "DB_POSTGRESDB_SSL_REJECT_UNAUTHORIZED", value = "0" }, // DB Cert Error Fix (TEMP)
         { name = "DB_POSTGRESDB_DATABASE", value = var.db_name },
         { name = "DB_POSTGRESDB_HOST", value = aws_db_instance.n8n_postgres.address },
@@ -142,17 +142,6 @@ resource "aws_ecs_task_definition" "n8n_task" {
           name      = "RDS_CA_CERT"
           valueFrom = "${aws_secretsmanager_secret.n8n_basic_auth.arn}:RDS_PEM::"
         }
-      ]
-
-      # Write the CA cert secret to /tmp/global-bundle.pem before starting n8n
-      entryPoint = [
-        "sh", "-c",
-        <<EOT
-echo "$RDS_CA_CERT" > /tmp/global-bundle.pem && \
-export NODE_EXTRA_CA_CERTS=/tmp/global-bundle.pem && \
-export DB_POSTGRESDB_SSL_CA_FILE=/tmp/global-bundle.pem && \
-exec n8n
-EOT
       ]
 
       logConfiguration = {
